@@ -1,0 +1,38 @@
+
+# get movies
+
+{
+    "username": "root",
+    "password":"root",
+}
+
+
+# add movie
+{
+    "username": "root",
+    "password":"root",
+    "title":"title",
+    "url":"url"
+}
+
+
+# change movie
+{
+    "username": "root",
+    "password":"root",
+    "title":"title",
+    "url":"url"
+}
+
+# get movie <id>
+{
+    "username": "root",
+    "password":"root",
+}
+
+
+# delete movie <id>
+{
+    "username": "root",
+    "password":"root",
+}

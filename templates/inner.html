@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Details</title>
+    <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+            background-color: #f3f3f3;
+        }
+        
+    #movie-video {
+        position: relative;
+        width: 100% !important;
+        height: 400px !important;
+      }
+      
+        .container {
+            max-width: 1200px; /* Increased max-width */
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .movie-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            padding-top: 25px;
+            height: 0;
+            width: 100%; /* Ensure the video container fills the width */
+        }
+
+        .video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%; /* Make the video fill the container width */
+            height: 100%; /* Make the video fill the container height */
+        }
+
+        .message {
+            margin-top: 20px;
+            font-size: 16px;
+            color: #666;
+        }
+
+        .message a {
+            color: #007bff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2 class="movie-title">Movie Details</h2>
+        <div class="video-container">
+            <video id="movie-video" class="video-js vjs-default-skin" controls preload="auto" width="100%">
+                <!-- Source will be added dynamically -->
+                <p class="vjs-no-js">
+                    To view this video please enable JavaScript, and consider upgrading to a
+                    <a href="https://videojs.com/html5-video-support/" target="_blank">browser that supports HTML5 video</a>
+                </p>
+            </video>
+        </div>
+    </div>
+
+    <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
+    <script>
+        var movie = null
+        get_movie()
+        function get_movie() {
+
+            const userData = JSON.parse(localStorage.getItem('userData'));
+            const data = {
+                "username": userData.username,
+                "password": userData.password,
+            }
+
+            var movie_id =  window.location.pathname.split('/').pop();
+            // Send POST request to add new movie
+            fetch(`http://127.0.0.1:5000/movies/${movie_id}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                data
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to add new movie');
+                    }
+                    return response.json();
+                })
+                .then(res => {
+                   place_movie(res)
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+
+        }
+
+
+        function place_movie(movie){
+            const videoElement = document.getElementById('movie-video');
+            videoElement.src = movie.url;
+
+            // Initialize Video.js for the video element
+            const player = videojs(videoElement);
+        }
+    </script>
+</body>
+
+</html>

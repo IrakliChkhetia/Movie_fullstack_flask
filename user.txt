@@ -1,0 +1,51 @@
+
+# auth 
+{
+    "username": "root",
+    "password":"root"
+}
+
+# get users ! admin
+
+{
+    "username": "root",
+    "password":"root"
+    
+}
+
+
+# add user ! admin
+{
+    "username": "root",
+    "password":"root",
+    "user": {
+        "username": "gela",
+        "password": "gela",
+    }
+
+}
+
+# get user <id>
+{
+    "username": "root",
+    "password":"root",
+
+}
+
+# change user <id> ! admin
+{
+    "username": "root",
+    "password":"root",
+    "user": {
+        "username": "gela",
+        "password": "gela",
+    }
+}
+
+# delete user <id> ! admin
+{
+    "username": "root",
+    "password":"root",
+}
+
+
